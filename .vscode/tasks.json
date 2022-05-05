@@ -9,8 +9,10 @@
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+                "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "-I${workspaceFolder}/modules"
             ],
+
             "options": {
                 "cwd": "${fileDirname}"
             },
