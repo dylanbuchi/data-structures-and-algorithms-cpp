@@ -1,0 +1,16 @@
+{
+    "configurations": [
+        {
+            "type": "cppdbg",
+            "request": "launch",
+            "MIMode": "gdb",
+            "name": "C++ GDB Debug",
+            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "miDebuggerPath": "C:\\msys64\\mingw64\\bin\\gdb.exe",
+            "stopAtEntry": true,
+            "externalConsole": false
+        }
+    ]
+}
