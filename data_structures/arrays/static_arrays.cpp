@@ -49,4 +49,7 @@ int main() {
 
     print_array(array_2, array_2_size);
     print();
+
+    delete[] array_2;
+    array_2 = nullptr;
 }
