@@ -6,7 +6,7 @@ using std::endl;
 
 // resize the array in place
 void resize_array(int*& old_array, size_t& old_array_size) {
-    int new_size = old_array_size * 2;
+    size_t new_size = old_array_size * 2;
     int* new_array = new int[new_size];
 
     for (size_t i = 0; i < old_array_size; i++) {

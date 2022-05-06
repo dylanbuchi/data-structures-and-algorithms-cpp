@@ -23,11 +23,25 @@ void free_2d_array_memory(int** array, size_t row_size) {
 
 int main() {
     // create a 2d array in the stack memory
-    int array[2][2] = {{1, 2}, {3, 4}};
+    char array[2][2] = {{'A', 'B'}, {'C', 'D'}};
+
+    size_t array_size = 2;
+
+    for (size_t row = 0; row < array_size; row++) {
+        cout << "[";
+        for (size_t col = 0; col < array_size; col++)
+            cout
+                << array[row][col] << (col < array_size - 1 ? ", " : "");
+        print("]");
+    }
+
+    print();
+
+    // create a 2d array in the heap memory, (only columns in heap)
+    int* array_2[3];
 
     size_t size = 3;
-    // create a 2d array in the heap memory, (only columns in heap)
-    int* array_2[size];
+
     initialize_2d_array(array_2, size);
 
     // create a 2d array in the heap memory using double pointers (all in heap)

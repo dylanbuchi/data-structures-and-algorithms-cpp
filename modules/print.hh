@@ -17,7 +17,7 @@ void print() {
     cout << endl;
 }
 
-void print_array(int array[], int size) {
+void print_array(int array[], size_t size) {
     cout << "[";
     for (size_t i = 0; i < size; i++) {
         cout << array[i] << (i < size - 1 ? ", " : "");
@@ -32,7 +32,6 @@ void print_2d_array(int** array, size_t row_size, size_t col_size) {
             cout << array[row][col] << (col < col_size - 1 ? ", " : "");
         }
         cout << "]";
-
         print();
     }
 }
