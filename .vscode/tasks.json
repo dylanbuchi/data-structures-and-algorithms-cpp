@@ -10,7 +10,10 @@
                 "${file}",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
-                "-I${workspaceFolder}/modules"
+                "-I${workspaceFolder}/modules",
+                "-Wall",
+                "-Wextra",
+                "-pedantic"
             ],
 
             "options": {

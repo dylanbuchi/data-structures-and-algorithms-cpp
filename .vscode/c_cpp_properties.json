@@ -2,11 +2,17 @@
     "configurations": [
         {
             "name": "Win32",
-            "includePath": ["${workspaceFolder}/**"],
-            "defines": ["_DEBUG", "UNICODE", "_UNICODE"],
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
             "compilerPath": "C:/msys64/mingw64/bin/clang++.exe",
-            "cStandard": "c17",
-            "cppStandard": "c++20",
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++20",
             "intelliSenseMode": "windows-clang-x64"
         }
     ],
