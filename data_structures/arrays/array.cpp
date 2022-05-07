@@ -1,6 +1,7 @@
 #include "print.hh"
 
 using std::cin;
+using std::cout;
 
 template <typename T>
 class Array {
