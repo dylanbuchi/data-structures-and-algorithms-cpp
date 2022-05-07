@@ -1,37 +1,34 @@
 #include <iostream>
 
-using std::cout;
-using std::endl;
-
 template <typename Object>
 void print(Object object) {
-    cout << object << endl;
+    std::cout << object << std::endl;
 }
 
 template <typename Object>
 void print_memory_address(Object object) {
-    cout << &object << endl;
+    std::cout << &object << std::endl;
 }
 // prints a new line
 void print() {
-    cout << endl;
+    std::cout << std::endl;
 }
 
 void print_array(int array[], size_t size) {
-    cout << "[";
+    std::cout << "[";
     for (size_t i = 0; i < size; i++) {
-        cout << array[i] << (i < size - 1 ? ", " : "");
+        std::cout << array[i] << (i < size - 1 ? ", " : "");
     }
-    cout << "]";
+    std::cout << "]";
 }
 
 void print_2d_array(int** array, size_t row_size, size_t col_size) {
     for (size_t row = 0; row < row_size; row++) {
-        cout << "[";
+        std::cout << "[";
         for (size_t col = 0; col < col_size; col++) {
-            cout << array[row][col] << (col < col_size - 1 ? ", " : "");
+            std::cout << array[row][col] << (col < col_size - 1 ? ", " : "");
         }
-        cout << "]";
+        std::cout << "]";
         print();
     }
 }
