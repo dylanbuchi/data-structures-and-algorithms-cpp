@@ -8,9 +8,9 @@
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
             "args": [],
             "cwd": "${workspaceFolder}",
-            "miDebuggerPath": "C:\\msys64\\mingw64\\bin\\gdb.exe",
+            "miDebuggerPath": "C:/mingw64/bin/gdb.exe",
             "stopAtEntry": true,
-            "externalConsole": false
+            "externalConsole": true
         }
     ]
 }
