@@ -21,7 +21,7 @@ void printArray(int array[], size_t size) {
     for (size_t i = 0; i < size; i++) {
         std::cout << array[i] << (i < size - 1 ? ", " : "");
     }
-    std::cout << "]";
+    std::cout << "]" << std::endl;
 }
 
 void print2dArray(int** array, size_t row_size, size_t col_size) {
