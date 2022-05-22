@@ -30,7 +30,6 @@ void print2dArray(int** array, size_t row_size, size_t col_size) {
         for (size_t col = 0; col < col_size; col++) {
             std::cout << array[row][col] << (col < col_size - 1 ? ", " : "");
         }
-        std::cout << "]";
-        print();
+        std::cout << "]" << std::endl;
     }
 }
