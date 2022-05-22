@@ -8,7 +8,7 @@ void print(Object object) {
 }
 
 template <typename Object>
-void print_memory_address(Object object) {
+void printMemoryAddress(Object object) {
     std::cout << &object << std::endl;
 }
 // prints a new line
@@ -16,7 +16,7 @@ void print() {
     std::cout << std::endl;
 }
 
-void print_array(int array[], size_t size) {
+void printArray(int array[], size_t size) {
     std::cout << "[";
     for (size_t i = 0; i < size; i++) {
         std::cout << array[i] << (i < size - 1 ? ", " : "");
@@ -24,7 +24,7 @@ void print_array(int array[], size_t size) {
     std::cout << "]";
 }
 
-void print_2d_array(int** array, size_t row_size, size_t col_size) {
+void print2dArray(int** array, size_t row_size, size_t col_size) {
     for (size_t row = 0; row < row_size; row++) {
         std::cout << "[";
         for (size_t col = 0; col < col_size; col++) {

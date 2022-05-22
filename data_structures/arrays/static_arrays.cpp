@@ -1,11 +1,12 @@
 #include <iostream>
-#include <print.hh>
+
+#include "print.hh"
 
 using std::cout;
 using std::endl;
 
 // resize the array in place
-void resize_array(int*& old_array, size_t& old_array_size) {
+void resizeArray(int*& old_array, size_t& old_array_size) {
     size_t new_size = old_array_size * 2;
     int* new_array = new int[new_size];
 
@@ -30,7 +31,7 @@ int main() {
     // calculate the size of the array
     size_t array_size = sizeof array / sizeof *array;
 
-    print_array(array, array_size);
+    printArray(array, array_size);
 
     print();
 
@@ -42,12 +43,12 @@ int main() {
         array_2[i] = (i + 1) * 2;
     }
 
-    print_array(array_2, array_2_size);
+    printArray(array_2, array_2_size);
     print();
 
-    resize_array(array_2, array_2_size);
+    resizeArray(array_2, array_2_size);
 
-    print_array(array_2, array_2_size);
+    printArray(array_2, array_2_size);
     print();
 
     delete[] array_2;
