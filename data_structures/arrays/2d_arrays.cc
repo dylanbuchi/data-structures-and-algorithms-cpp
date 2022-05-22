@@ -1,4 +1,4 @@
-#include "print.hh"
+#include "print.h"
 
 using std::cout;
 
