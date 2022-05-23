@@ -17,7 +17,9 @@ private:
     void Resize_(T*& array);
 
     int LinearSearch_(T target);
+
     int BinarySearch_(T target);
+    int RecursiveBinarySearch_(T target, size_t start, size_t end);
 
 public:
     Array(size_t capacity);
@@ -187,6 +189,24 @@ int Array<T>::BinarySearch_(T target) {
     }
 
     return -1;
+}
+
+template <class T>
+int Array<T>::RecursiveBinarySearch_(T target, size_t start, size_t end) {
+    if (start > end)
+        return -1;
+
+    size_t mid = start + (end - start) / 2;
+
+    T mid_item = array_[mid];
+
+    if (mid_item == target)
+        return mid;
+
+    if (mid_item > target)
+        return RecursiveBinarySearch_(target, start, mid - 1);
+    else
+        return RecursiveBinarySearch_(target, mid + 1, end);
 }
 
 template <class T>
