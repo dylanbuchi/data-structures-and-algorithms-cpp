@@ -1,13 +1,17 @@
+#include <functional>
+
 #include "exception.h"
 #include "print.h"
+
+using std::function;
 
 template <class T>
 class Array {
 private:
-    const std::string kIndexOutOfBoundsString{"Index out of bounds"};
-    const std::string kEmptyArrayString{"The array is empty"};
+    const std::string kIndexOutOfBoundsString_{"Index out of bounds"};
+    const std::string kEmptyArrayString_{"The array is empty"};
 
-    const size_t kResizeValue{2};
+    const size_t kResizeValue_{2};
 
     T* array_;
 
@@ -43,9 +47,6 @@ public:
     bool Find(T target);
     bool Full();
     bool Empty();
-
-    T Search(T item);
-    T Get(size_t index);
 
     T RemoveAt(size_t index);
     T PopBack();
@@ -124,7 +125,7 @@ size_t Array<T>::length() {
 template <class T>
 void Array<T>::InsertAt(size_t index, T item) {
     if ((int)index < 0 or index > length_)
-        throw Exception(kIndexOutOfBoundsString);
+        throw Exception(kIndexOutOfBoundsString_);
 
     if (index == length_) {
         return PushBack(item);
@@ -167,7 +168,7 @@ void Array<T>::PushBack(T item) {
 
 template <class T>
 void Array<T>::Resize_(T*& array) {
-    size_t new_capacity = capacity_ * kResizeValue;
+    size_t new_capacity = capacity_ * kResizeValue_;
 
     T* new_array = new T[new_capacity];
 
@@ -184,10 +185,10 @@ void Array<T>::Resize_(T*& array) {
 template <class T>
 T Array<T>::RemoveAt(size_t index) {
     if (Empty())
-        throw Exception(kEmptyArrayString);
+        throw Exception(kEmptyArrayString_);
 
     if (index < 0 or index >= length_)
-        throw Exception(kIndexOutOfBoundsString);
+        throw Exception(kIndexOutOfBoundsString_);
 
     if (index == length_ - 1)
         return PopBack();
@@ -205,7 +206,7 @@ T Array<T>::RemoveAt(size_t index) {
 template <class T>
 T Array<T>::PopBack() {
     if (Empty())
-        throw Exception(kEmptyArrayString);
+        throw Exception(kEmptyArrayString_);
 
     length_--;
     T deleted = array_[length_];
