@@ -81,11 +81,8 @@ void LinkedList<T>::PushFront(T data) {
 
     length_++;
 }
+
 template <class T>
 size_t LinkedList<T>::length() {
     return length_;
-}
-
-int main() {
-    return 0;
 }
