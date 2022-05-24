@@ -36,14 +36,13 @@ void Print2dArray(int** array, size_t row_size, size_t col_size) {
 template <typename Node>
 void PrintLinkedList(Node* head) {
     if (head == nullptr) {
-        Print("Empty");
         return;
     }
-
+    std::cout << "[";
     while (head) {
         std::cout << "(" << head->data << ") --> ";
         head = head->next;
     }
 
-    Print();
+    Print("null ]");
 }
