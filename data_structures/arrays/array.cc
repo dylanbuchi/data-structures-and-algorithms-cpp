@@ -18,7 +18,7 @@ private:
     size_t length_{0};
     size_t capacity_{0};
 
-    void Resize_(T*& array);
+    void Resize_();
 
     int LinearSearch_(T target);
 
@@ -132,7 +132,7 @@ void Array<T>::InsertAt(size_t index, T item) {
     }
 
     if (Full())
-        Resize_(array_);
+        Resize_();
 
     for (size_t i = length(); i > index; i--)
         array_[i] = array_[i - 1];
@@ -160,14 +160,14 @@ void Array<T>::Display() {
 template <class T>
 void Array<T>::PushBack(T item) {
     if (Full())
-        Resize_(array_);
+        Resize_();
 
     array_[length_] = item;
     length_++;
 }
 
 template <class T>
-void Array<T>::Resize_(T*& array) {
+void Array<T>::Resize_() {
     size_t new_capacity = capacity_ * kResizeValue_;
 
     T* new_array = new T[new_capacity];
@@ -175,10 +175,10 @@ void Array<T>::Resize_(T*& array) {
     for (size_t i = 0; i < length_; i++)
         new_array[i] = array_[i];
 
-    delete[] array;
-    array = nullptr;
+    delete[] array_;
+    array_ = nullptr;
 
-    array = new_array;
+    array_ = new_array;
     capacity_ = new_capacity;
 }
 
@@ -283,8 +283,4 @@ size_t Array<T>::IndexOf(T item) {
 template <class T>
 size_t Array<T>::capacity() {
     return capacity_;
-}
-
-int main() {
-    return 0;
 }
