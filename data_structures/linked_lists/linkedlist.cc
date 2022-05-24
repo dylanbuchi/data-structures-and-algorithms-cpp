@@ -24,6 +24,7 @@ template <class T>
 class LinkedList {
 private:
     const string kEmptyLinkedListString_ = "Empty linked list";
+    const string kInvalidPosition = "Invalid position";
 
     Node<T> *head_, *tail_;
     size_t length_;
@@ -36,10 +37,12 @@ public:
 
     void PushFront(T);
     void PushBack(T);
+    void InsertAt(size_t, T);
 
     void Display();
 
     size_t length();
+    // todo
 };
 
 template <class T>
@@ -100,6 +103,30 @@ void LinkedList<T>::PushBack(T data) {
         tail_->next = new_node;
         tail_ = new_node;
     }
+
+    length_++;
+}
+
+template <class T>
+void LinkedList<T>::InsertAt(size_t position, T data) {
+    if (position == length_ + 1)
+        return PushBack(data);
+
+    if (position == 1)
+        return PushFront(data);
+
+    if ((position < 1 or position > length_))
+        throw Exception(kInvalidPosition);
+
+    Node<T> *temp = head_;
+
+    for (size_t i = 2; i < position; i++)
+        temp = temp->next;
+
+    Node<T> *new_node = new Node{data};
+
+    new_node->next = temp->next;
+    temp->next = new_node;
 
     length_++;
 }
