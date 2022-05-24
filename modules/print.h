@@ -33,3 +33,16 @@ void print2dArray(int** array, size_t row_size, size_t col_size) {
         std::cout << "]" << std::endl;
     }
 }
+template <typename Node>
+void PrintLinkedList(Node* head) {
+    if (head == nullptr) {
+        print("Empty");
+        return;
+    }
+
+    while (head) {
+        std::cout << "(" << head->data << ") --> ";
+        head = head->next;
+    }
+    print();
+}
