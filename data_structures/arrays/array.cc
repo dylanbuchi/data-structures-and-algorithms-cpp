@@ -21,6 +21,11 @@ private:
     int BinarySearch_(T target);
     int RecursiveBinarySearch_(T target, size_t start, size_t end);
 
+    void ShiftItemTo_(function<void()> shift_function, size_t number_of_times);
+
+    void ShiftItemToRight_();
+    void ShiftItemToLeft_();
+
 public:
     Array(size_t capacity);
     Array() : Array(10){};
@@ -31,6 +36,9 @@ public:
 
     void Display();
     void Set(size_t index, T item);
+
+    void ShiftItemToRight(size_t number_of_times);
+    void ShiftItemToLeft(size_t number_of_times);
 
     bool Find(T target);
     bool Full();
@@ -46,6 +54,53 @@ public:
     size_t capacity();
     size_t IndexOf(T item);
 };
+
+template <class T>
+void Array<T>::ShiftItemToRight_() {
+    if (Empty())
+        throw Exception(kEmptyArrayString_);
+
+    T temp_item = array_[length_ - 1];
+
+    for (size_t i = length_ - 1; i > 0; i--) {
+        array_[i] = array_[i - 1];
+    }
+
+    array_[0] = temp_item;
+}
+
+template <class T>
+void Array<T>::ShiftItemToLeft_() {
+    if (Empty())
+        throw Exception(kEmptyArrayString_);
+
+    T temp_item = array_[0];
+
+    for (size_t i = 0; i < length_ - 1; i++) {
+        array_[i] = array_[i + 1];
+    }
+
+    array_[length_ - 1] = temp_item;
+}
+
+template <class T>
+void Array<T>::ShiftItemToRight(size_t number_of_times) {
+    ShiftItemTo_(std::bind(&Array<T>::ShiftItemToRight_, this), number_of_times);
+}
+
+template <class T>
+void Array<T>::ShiftItemTo_(function<void()> shift_function, size_t number_of_times) {
+    if (Empty())
+        throw Exception(kEmptyArrayString_);
+
+    for (size_t i = 0; i < number_of_times; i++)
+        shift_function();
+}
+
+template <class T>
+void Array<T>::ShiftItemToLeft(size_t number_of_times) {
+    ShiftItemTo_(std::bind(&Array<T>::ShiftItemToLeft_, this), number_of_times);
+}
 
 template <class T>
 Array<T>::Array(size_t capacity) {
