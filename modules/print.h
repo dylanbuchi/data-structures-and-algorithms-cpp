@@ -3,20 +3,20 @@
 #include <iostream>
 
 template <typename Object>
-void print(Object object) {
+void Print(Object object) {
     std::cout << object << std::endl;
 }
 
 template <typename Object>
-void printMemoryAddress(Object object) {
+void PrintMemoryAddress(Object object) {
     std::cout << &object << std::endl;
 }
 // prints a new line
-void print() {
+void Print() {
     std::cout << std::endl;
 }
 
-void printArray(int array[], size_t size) {
+void PrintArray(int array[], size_t size) {
     std::cout << "[";
     for (size_t i = 0; i < size; i++) {
         std::cout << array[i] << (i < size - 1 ? ", " : "");
@@ -24,7 +24,7 @@ void printArray(int array[], size_t size) {
     std::cout << "]" << std::endl;
 }
 
-void print2dArray(int** array, size_t row_size, size_t col_size) {
+void Print2dArray(int** array, size_t row_size, size_t col_size) {
     for (size_t row = 0; row < row_size; row++) {
         std::cout << "[";
         for (size_t col = 0; col < col_size; col++) {
@@ -36,7 +36,7 @@ void print2dArray(int** array, size_t row_size, size_t col_size) {
 template <typename Node>
 void PrintLinkedList(Node* head) {
     if (head == nullptr) {
-        print("Empty");
+        Print("Empty");
         return;
     }
 
@@ -44,5 +44,6 @@ void PrintLinkedList(Node* head) {
         std::cout << "(" << head->data << ") --> ";
         head = head->next;
     }
-    print();
+
+    Print();
 }

@@ -154,7 +154,7 @@ bool Array<T>::Empty() {
 
 template <class T>
 void Array<T>::Display() {
-    printArray(array_, length_);
+    PrintArray(array_, length_);
 }
 
 template <class T>

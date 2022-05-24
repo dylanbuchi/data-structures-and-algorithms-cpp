@@ -31,9 +31,9 @@ int main() {
     // calculate the size of the array
     size_t array_size = sizeof array / sizeof *array;
 
-    printArray(array, array_size);
+    PrintArray(array, array_size);
 
-    print();
+    Print();
 
     // static array of integers created on the heap memory
     int* array_2 = new int[5];
@@ -43,13 +43,13 @@ int main() {
         array_2[i] = (i + 1) * 2;
     }
 
-    printArray(array_2, array_2_size);
-    print();
+    PrintArray(array_2, array_2_size);
+    Print();
 
     resizeArray(array_2, array_2_size);
 
-    printArray(array_2, array_2_size);
-    print();
+    PrintArray(array_2, array_2_size);
+    Print();
 
     delete[] array_2;
     array_2 = nullptr;

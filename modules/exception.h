@@ -16,6 +16,6 @@ public:
     };
 
     void PrintError() {
-        print(m_message);
+        Print(m_message);
     };
 };

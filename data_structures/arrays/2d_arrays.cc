@@ -34,10 +34,10 @@ int main() {
         for (size_t col = 0; col < array_size; col++)
             cout
                 << array[row][col] << (col < array_size - 1 ? ", " : "");
-        print("]");
+        Print("]");
     }
 
-    print();
+    Print();
 
     // create a 2d array in the heap memory, (only columns in heap)
     int* array_2[3];
@@ -54,9 +54,9 @@ int main() {
     fill2dArray(array_2, size, size, 3);
     fill2dArray(array_3, size, size, -1);
 
-    print2dArray(array_2, size, size);
-    print();
-    print2dArray(array_3, size, size);
+    Print2dArray(array_2, size, size);
+    Print();
+    Print2dArray(array_3, size, size);
 
     free2dArrayMemory(array_2, size);
     free2dArrayMemory(array_3, size);
