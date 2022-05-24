@@ -35,6 +35,8 @@ public:
     bool Empty();
 
     void PushFront(T);
+    void PushBack(T);
+
     void Display();
 
     size_t length();
@@ -85,4 +87,19 @@ void LinkedList<T>::PushFront(T data) {
 template <class T>
 size_t LinkedList<T>::length() {
     return length_;
+}
+
+template <class T>
+void LinkedList<T>::PushBack(T data) {
+    Node<T> *new_node = new Node{data};
+
+    if (Empty())
+        head_ = tail_ = new_node;
+
+    else {
+        tail_->next = new_node;
+        tail_ = new_node;
+    }
+
+    length_++;
 }
