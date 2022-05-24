@@ -24,7 +24,7 @@ template <class T>
 class LinkedList {
 private:
     const string kEmptyLinkedListString_ = "Empty linked list";
-    const string kInvalidPosition = "Invalid position";
+    const string kInvalidPosition_ = "Invalid position";
 
     Node<T> *head_, *tail_;
     size_t length_;
@@ -42,7 +42,8 @@ public:
     void Display();
 
     size_t length();
-    // todo
+
+    T PopFront();
 };
 
 template <class T>
@@ -66,9 +67,6 @@ bool LinkedList<T>::Empty() {
 
 template <class T>
 void LinkedList<T>::Display() {
-    if (Empty())
-        throw Exception(kEmptyLinkedListString_);
-
     PrintLinkedList(head_);
 }
 
@@ -116,7 +114,7 @@ void LinkedList<T>::InsertAt(size_t position, T data) {
         return PushFront(data);
 
     if ((position < 1 or position > length_))
-        throw Exception(kInvalidPosition);
+        throw Exception(kInvalidPosition_);
 
     Node<T> *temp = head_;
 
@@ -129,4 +127,34 @@ void LinkedList<T>::InsertAt(size_t position, T data) {
     temp->next = new_node;
 
     length_++;
+}
+
+template <class T>
+T LinkedList<T>::PopFront() {
+    T deleted;
+
+    if (Empty())
+        throw Exception(kEmptyLinkedListString_);
+
+    if (length_ == 1) {
+        deleted = head_->data;
+
+        delete head_;
+
+        head_ = tail_ = nullptr;
+
+    } else {
+        auto *temp = head_;
+
+        deleted = temp->data;
+        head_ = temp->next;
+
+        temp->next = nullptr;
+        delete temp;
+        temp = nullptr;
+    }
+
+    length_--;
+
+    return deleted;
 }
