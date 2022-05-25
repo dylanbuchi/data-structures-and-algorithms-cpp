@@ -175,3 +175,27 @@ Node<T> *LinkedList<T>::GetNodeAt_(size_t position) {
 
     return temp;
 }
+
+template <class T>
+T LinkedList<T>::PopBack() {
+    if (Empty())
+        throw Exception(kEmptyLinkedListString_);
+
+    if (length_ == 1)
+        return PopFront();
+
+    auto *previous_node = GetNodeAt_(length_ - 1);
+
+    auto deleted = tail_->data;
+
+    delete tail_;
+    tail_ = nullptr;
+
+    previous_node->next = nullptr;
+
+    tail_ = previous_node;
+
+    length_--;
+
+    return deleted;
+}
