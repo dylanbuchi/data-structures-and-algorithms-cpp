@@ -31,6 +31,8 @@ private:
 
     Node<T> *GetNodeAt_(size_t);
 
+    void HandlePosition_(size_t);
+
 public:
     LinkedList();
     ~LinkedList();
@@ -117,8 +119,7 @@ void LinkedList<T>::InsertAt(size_t position, T data) {
     if (position == 1)
         return PushFront(data);
 
-    if ((position < 1 or position > length_))
-        throw Exception(kInvalidPosition_);
+    HandlePosition_(position);
 
     Node<T> *temp = head_;
 
@@ -165,8 +166,7 @@ T LinkedList<T>::PopFront() {
 
 template <class T>
 Node<T> *LinkedList<T>::GetNodeAt_(size_t position) {
-    if ((position < 1 or position > length_))
-        throw Exception(kInvalidPosition_);
+    HandlePosition_(position);
 
     auto *temp = head_;
 
@@ -200,13 +200,13 @@ T LinkedList<T>::PopBack() {
 
     return deleted;
 }
+
 template <class T>
 T LinkedList<T>::RemoveAt(size_t position) {
     if (Empty())
         throw Exception(kEmptyLinkedListString_);
 
-    if (position < 1 or position > length_)
-        throw Exception(kInvalidPosition_);
+    HandlePosition_(position);
 
     if (position == 1)
         return PopFront();
@@ -228,4 +228,10 @@ T LinkedList<T>::RemoveAt(size_t position) {
     length_--;
 
     return deleted;
+}
+
+template <class T>
+void LinkedList<T>::HandlePosition_(size_t position) {
+    if ((position < 1 or position > length_))
+        throw Exception(kInvalidPosition_);
 }
