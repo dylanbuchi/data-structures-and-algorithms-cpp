@@ -32,6 +32,7 @@ private:
     Node<T> *GetNodeAt_(size_t);
 
     void HandlePosition_(size_t);
+    void HandleEmptyLinkedList_();
 
 public:
     LinkedList();
@@ -136,10 +137,9 @@ void LinkedList<T>::InsertAt(size_t position, T data) {
 
 template <class T>
 T LinkedList<T>::PopFront() {
-    T deleted;
+    HandleEmptyLinkedList_();
 
-    if (Empty())
-        throw Exception(kEmptyLinkedListString_);
+    T deleted;
 
     if (length_ == 1) {
         deleted = head_->data;
@@ -166,6 +166,7 @@ T LinkedList<T>::PopFront() {
 
 template <class T>
 Node<T> *LinkedList<T>::GetNodeAt_(size_t position) {
+    HandleEmptyLinkedList_();
     HandlePosition_(position);
 
     auto *temp = head_;
@@ -179,8 +180,7 @@ Node<T> *LinkedList<T>::GetNodeAt_(size_t position) {
 
 template <class T>
 T LinkedList<T>::PopBack() {
-    if (Empty())
-        throw Exception(kEmptyLinkedListString_);
+    HandleEmptyLinkedList_();
 
     if (length_ == 1)
         return PopFront();
@@ -203,9 +203,7 @@ T LinkedList<T>::PopBack() {
 
 template <class T>
 T LinkedList<T>::RemoveAt(size_t position) {
-    if (Empty())
-        throw Exception(kEmptyLinkedListString_);
-
+    HandleEmptyLinkedList_();
     HandlePosition_(position);
 
     if (position == 1)
@@ -234,4 +232,10 @@ template <class T>
 void LinkedList<T>::HandlePosition_(size_t position) {
     if ((position < 1 or position > length_))
         throw Exception(kInvalidPosition_);
+}
+
+template <class T>
+void LinkedList<T>::HandleEmptyLinkedList_() {
+    if (Empty())
+        throw Exception(kEmptyLinkedListString_);
 }
