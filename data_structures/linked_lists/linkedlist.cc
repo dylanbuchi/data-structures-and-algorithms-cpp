@@ -29,6 +29,8 @@ private:
     Node<T> *head_, *tail_;
     size_t length_;
 
+    Node<T> *GetNodeAt_(size_t);
+
 public:
     LinkedList();
     ~LinkedList();
@@ -44,6 +46,7 @@ public:
     size_t length();
 
     T PopFront();
+    T PopBack();
 };
 
 template <class T>
@@ -157,4 +160,18 @@ T LinkedList<T>::PopFront() {
     length_--;
 
     return deleted;
+}
+
+template <class T>
+Node<T> *LinkedList<T>::GetNodeAt_(size_t position) {
+    if ((position < 1 or position > length_))
+        throw Exception(kInvalidPosition_);
+
+    auto *temp = head_;
+
+    for (size_t i = 2; i <= position; i++) {
+        temp = temp->next;
+    }
+
+    return temp;
 }
