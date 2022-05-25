@@ -47,6 +47,7 @@ public:
 
     T PopFront();
     T PopBack();
+    T RemoveAt(size_t);
 };
 
 template <class T>
@@ -194,6 +195,35 @@ T LinkedList<T>::PopBack() {
     previous_node->next = nullptr;
 
     tail_ = previous_node;
+
+    length_--;
+
+    return deleted;
+}
+template <class T>
+T LinkedList<T>::RemoveAt(size_t position) {
+    if (Empty())
+        throw Exception(kEmptyLinkedListString_);
+
+    if (position < 1 or position > length_)
+        throw Exception(kInvalidPosition_);
+
+    if (position == 1)
+        return PopFront();
+
+    if (position == length_)
+        return PopBack();
+
+    auto *previous_node = GetNodeAt_(position - 1);
+    auto *node_to_delete = previous_node->next;
+
+    auto deleted = node_to_delete->data;
+
+    previous_node->next = previous_node->next->next;
+
+    node_to_delete->next = nullptr;
+    delete node_to_delete;
+    node_to_delete = nullptr;
 
     length_--;
 
