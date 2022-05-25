@@ -122,10 +122,7 @@ void LinkedList<T>::InsertAt(size_t position, T data) {
 
     HandlePosition_(position);
 
-    Node<T> *temp = head_;
-
-    for (size_t i = 2; i < position; i++)
-        temp = temp->next;
+    auto *temp = GetNodeAt_(position - 1);
 
     Node<T> *new_node = new Node{data};
 
