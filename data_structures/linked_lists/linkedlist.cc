@@ -256,7 +256,7 @@ T LinkedList<T>::Get(T item) {
     int node_position = Find(item);
 
     if (node_position < 1)
-        throw Exception(error_.kEmpty);
+        throw Exception(error_.kItemDoesNotExist);
 
     return GetNodeAt_(node_position)->data;
 }
@@ -289,6 +289,7 @@ Node<T> *LinkedList<T>::Reverse_() {
 template <class T>
 Node<T> *LinkedList<T>::ReverseRecursively_(Node<T> *head, Node<T> *previous_node) {
     HandleEmptyLinkedList_();
+
     if (head == nullptr)
         return previous_node;
 
