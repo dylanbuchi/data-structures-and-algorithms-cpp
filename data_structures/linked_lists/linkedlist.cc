@@ -25,6 +25,7 @@ class LinkedList {
 private:
     const string kEmptyLinkedListString_ = "Empty linked list";
     const string kInvalidPosition_ = "Invalid position";
+    const string kItemNotInsideLinkedList_ = "Item does not exist";
 
     Node<T> *head_, *tail_;
     size_t length_;
@@ -38,10 +39,13 @@ public:
     LinkedList();
     ~LinkedList();
 
+    int Find(T);
+
     bool Empty();
 
     void PushFront(T);
     void PushBack(T);
+
     void InsertAt(size_t, T);
 
     void Display();
@@ -50,7 +54,9 @@ public:
 
     T PopFront();
     T PopBack();
+
     T RemoveAt(size_t);
+    T GetItem(T);
 };
 
 template <class T>
@@ -235,4 +241,34 @@ template <class T>
 void LinkedList<T>::HandleEmptyLinkedList_() {
     if (Empty())
         throw Exception(kEmptyLinkedListString_);
+}
+
+template <class T>
+int LinkedList<T>::Find(T item) {
+    HandleEmptyLinkedList_();
+
+    auto *temp = head_;
+    size_t position = 1;
+
+    while (temp) {
+        if (temp->data == item)
+            return position;
+
+        temp = temp->next;
+        position++;
+    }
+
+    throw Exception(kItemNotInsideLinkedList_);
+}
+
+template <class T>
+T LinkedList<T>::GetItem(T item) {
+    HandleEmptyLinkedList_();
+
+    int node_position = Find(item);
+
+    if (node_position < 1)
+        throw Exception(kItemNotInsideLinkedList_);
+
+    return GetNodeAt_(node_position)->data;
 }
