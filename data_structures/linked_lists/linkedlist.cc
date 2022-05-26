@@ -8,10 +8,6 @@ using std::string;
 template <class T>
 class LinkedList : public IList<T> {
 private:
-    const string kEmptyLinkedListString_ = "Empty linked list";
-    const string kInvalidPosition_ = "Invalid position";
-    const string kItemNotInsideLinkedList_ = "Item does not exist";
-
     size_t length_;
 
     Node<T> *head_, *tail_;
@@ -20,6 +16,8 @@ private:
 
     Node<T> *ReverseRecursively_(Node<T> *, Node<T> *);
     Node<T> *Reverse_();
+
+    Exception error_;
 
     void HandlePosition_(size_t);
     void HandleEmptyLinkedList_();
@@ -225,13 +223,13 @@ T LinkedList<T>::RemoveAt(size_t position) {
 template <class T>
 void LinkedList<T>::HandlePosition_(size_t position) {
     if ((position < 1 or position > length_))
-        throw Exception(kInvalidPosition_);
+        throw Exception(error_.kInvalidPosition);
 }
 
 template <class T>
 void LinkedList<T>::HandleEmptyLinkedList_() {
     if (Empty())
-        throw Exception(kEmptyLinkedListString_);
+        throw Exception(error_.kEmpty);
 }
 
 template <class T>
@@ -240,7 +238,6 @@ int LinkedList<T>::Find(T item) {
 
     auto *temp = head_;
     size_t position = 1;
-
     while (temp) {
         if (temp->data == item)
             return position;
@@ -249,7 +246,7 @@ int LinkedList<T>::Find(T item) {
         position++;
     }
 
-    throw Exception(kItemNotInsideLinkedList_);
+    throw Exception(error_.kItemDoesNotExist);
 }
 
 template <class T>
@@ -259,7 +256,7 @@ T LinkedList<T>::Get(T item) {
     int node_position = Find(item);
 
     if (node_position < 1)
-        throw Exception(kItemNotInsideLinkedList_);
+        throw Exception(error_.kEmpty);
 
     return GetNodeAt_(node_position)->data;
 }
