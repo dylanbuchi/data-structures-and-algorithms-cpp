@@ -7,7 +7,11 @@ private:
     std::string m_message;
 
 public:
-    Exception();
+    const std::string kEmpty{"Empty"};
+    const std::string kInvalidPosition{"Invalid position"};
+    const std::string kItemDoesNotExist{"Item does not exist"};
+
+    Exception() {}
     Exception(std::string message) {
         m_message = message;
 
