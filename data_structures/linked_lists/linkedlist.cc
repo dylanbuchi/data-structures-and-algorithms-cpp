@@ -1,4 +1,5 @@
 #include "exception.h"
+#include "list.h"
 #include "print.h"
 
 using std::string;
@@ -21,7 +22,7 @@ public:
 };
 
 template <class T>
-class LinkedList {
+class LinkedList : public IList<T> {
 private:
     const string kEmptyLinkedListString_ = "Empty linked list";
     const string kInvalidPosition_ = "Invalid position";
@@ -54,6 +55,7 @@ public:
 
     void Display();
     void Reverse();
+    void Set(size_t, T);
 
     size_t length();
 
@@ -61,7 +63,7 @@ public:
     T PopBack();
 
     T RemoveAt(size_t);
-    T GetItem(T);
+    T Get(T);
 };
 
 template <class T>
@@ -267,7 +269,7 @@ int LinkedList<T>::Find(T item) {
 }
 
 template <class T>
-T LinkedList<T>::GetItem(T item) {
+T LinkedList<T>::Get(T item) {
     HandleEmptyLinkedList_();
 
     int node_position = Find(item);
@@ -313,4 +315,13 @@ Node<T> *LinkedList<T>::ReverseRecursively_(Node<T> *head, Node<T> *previous_nod
     head->next = previous_node;
 
     return ReverseRecursively_(next_node, head);
+}
+
+template <class T>
+void LinkedList<T>::Set(size_t position, T item) {
+    HandleEmptyLinkedList_();
+    HandlePosition_(position);
+
+    auto *node = GetNodeAt_(position);
+    node->data = item;
 }
