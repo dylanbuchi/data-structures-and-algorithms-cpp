@@ -1,6 +1,8 @@
 template <class T>
 class IList {
 public:
+    virtual ~IList() {}
+
     virtual int Find(T) = 0;
 
     virtual bool Empty() = 0;
@@ -12,6 +14,8 @@ public:
 
     virtual void Display() = 0;
 
+    virtual void Set(size_t, T) = 0;
+
     virtual size_t length() = 0;
 
     virtual T PopFront() = 0;
@@ -20,5 +24,4 @@ public:
     virtual T RemoveAt(size_t) = 0;
 
     virtual T Get(T) = 0;
-    virtual void Set(size_t, T) = 0;
 };
