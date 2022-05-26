@@ -27,10 +27,14 @@ private:
     const string kInvalidPosition_ = "Invalid position";
     const string kItemNotInsideLinkedList_ = "Item does not exist";
 
-    Node<T> *head_, *tail_;
     size_t length_;
 
+    Node<T> *head_, *tail_;
+
     Node<T> *GetNodeAt_(size_t);
+
+    Node<T> *ReverseRecursively_(Node<T> *, Node<T> *);
+    Node<T> *Reverse_();
 
     void HandlePosition_(size_t);
     void HandleEmptyLinkedList_();
@@ -49,6 +53,7 @@ public:
     void InsertAt(size_t, T);
 
     void Display();
+    void Reverse();
 
     size_t length();
 
@@ -271,4 +276,41 @@ T LinkedList<T>::GetItem(T item) {
         throw Exception(kItemNotInsideLinkedList_);
 
     return GetNodeAt_(node_position)->data;
+}
+
+template <class T>
+void LinkedList<T>::Reverse() {
+    HandleEmptyLinkedList_();
+
+    tail_ = head_;
+    head_ = Reverse_();
+}
+
+template <class T>
+Node<T> *LinkedList<T>::Reverse_() {
+    HandleEmptyLinkedList_();
+
+    Node<T> *previous_node = nullptr;
+
+    while (head_) {
+        auto *next_node = head_->next;
+
+        head_->next = previous_node;
+        previous_node = head_;
+        head_ = next_node;
+    }
+
+    return previous_node;
+}
+
+template <class T>
+Node<T> *LinkedList<T>::ReverseRecursively_(Node<T> *head, Node<T> *previous_node) {
+    HandleEmptyLinkedList_();
+    if (head == nullptr)
+        return previous_node;
+
+    auto *next_node = head->next;
+    head->next = previous_node;
+
+    return ReverseRecursively_(next_node, head);
 }
