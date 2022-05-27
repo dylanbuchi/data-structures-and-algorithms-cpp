@@ -1,10 +1,11 @@
+#include "linkedlist.h"
+
 #include "exception.h"
-#include "list.h"
 #include "node.h"
 #include "print.h"
 
 template <class T>
-class LinkedList : public IList<T> {
+class LinkedList : public ILinkedList<T> {
 private:
     Node<T> *ReverseRecursively_(Node<T> *, Node<T> *);
     Node<T> *Reverse_();
