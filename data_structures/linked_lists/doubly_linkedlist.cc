@@ -6,11 +6,15 @@ template <class T>
 class DoublyLinkedList : public LinkedList<T> {
 public:
     void Display();
+
     void PushBack(T);
     void PushFront(T);
 
+    void InsertAt(size_t, T);
+
     T PopFront();
     T PopBack();
+
     T RemoveAt(size_t);
 };
 
@@ -140,4 +144,30 @@ T DoublyLinkedList<T>::RemoveAt(size_t position) {
     this->size--;
 
     return deleted;
+}
+
+template <class T>
+void DoublyLinkedList<T>::InsertAt(size_t position, T data) {
+    if (position == this->size + 1)
+        return PushBack(data);
+
+    if (position == 1)
+        return PushFront(data);
+
+    this->HandlePosition(position);
+
+    Node<T>* new_node = new Node{data};
+
+    auto* current_node = this->GetNodeAt(position);
+
+    auto* previous_node = current_node->prev;
+
+    new_node->next = current_node;
+    new_node->prev = previous_node;
+
+    previous_node->next = new_node;
+
+    current_node->prev = new_node;
+
+    this->size++;
 }
