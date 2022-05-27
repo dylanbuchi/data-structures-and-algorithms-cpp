@@ -17,6 +17,8 @@ public:
     ~CircularLinkedList();
 
     void Display();
+
+    bool Empty();
 };
 
 template <class T>
@@ -46,4 +48,9 @@ CircularLinkedList<T>::~CircularLinkedList() {
 template <class T>
 void CircularLinkedList<T>::Display() {
     PrintLinkedList(head_);
+}
+
+template <class T>
+bool CircularLinkedList<T>::Empty() {
+    return not length_;
 }
