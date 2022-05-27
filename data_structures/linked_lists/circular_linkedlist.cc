@@ -25,6 +25,7 @@ public:
     size_t length();
 
     void PushBack(T);
+    void PushFront(T);
 };
 
 template <class T>
@@ -81,11 +82,25 @@ void CircularLinkedList<T>::PushBack(T data) {
     if (Empty()) {
         new_node->next = new_node;
         head_ = tail_ = new_node;
-    }
-
-    else {
+    } else {
         tail_->next = new_node;
         tail_ = new_node;
+        tail_->next = head_;
+    }
+
+    length_++;
+}
+
+template <class T>
+void CircularLinkedList<T>::PushFront(T data) {
+    auto *new_node = new Node{data};
+
+    if (Empty()) {
+        new_node->next = new_node;
+        head_ = tail_ = new_node;
+    } else {
+        new_node->next = head_;
+        head_ = new_node;
         tail_->next = head_;
     }
 
