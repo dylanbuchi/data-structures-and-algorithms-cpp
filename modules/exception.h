@@ -8,7 +8,11 @@ private:
 
 public:
     const std::string kEmpty{"Empty"};
+
     const std::string kInvalidPosition{"Invalid position"};
+    const std::string kInvalidIndex{"Invalid index"};
+    const std::string kInvalidValue{"Invalid value"};
+
     const std::string kItemDoesNotExist{"Item does not exist"};
 
     Exception() {}
