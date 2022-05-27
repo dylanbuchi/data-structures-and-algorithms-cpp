@@ -7,6 +7,7 @@ class DoublyLinkedList : public LinkedList<T> {
 public:
     void Display();
     void PushBack(T);
+    void PushFront(T);
 };
 
 template <class T>
@@ -36,6 +37,23 @@ void DoublyLinkedList<T>::PushBack(T data) {
 
         this->tail->next = new_node;
         this->tail = new_node;
+    }
+
+    this->size++;
+}
+
+template <class T>
+void DoublyLinkedList<T>::PushFront(T data) {
+    Node<T>* new_node = new Node{data};
+
+    if (this->Empty())
+        this->head = this->tail = new_node;
+
+    else {
+        new_node->next = this->head;
+        this->head->prev = new_node;
+
+        this->head = new_node;
     }
 
     this->size++;
