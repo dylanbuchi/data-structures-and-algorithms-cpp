@@ -56,10 +56,20 @@ LinkedList<T>::LinkedList() {
 
 template <class T>
 LinkedList<T>::~LinkedList() {
-    delete head_;
-    delete tail_;
+    if (head_) {
+        auto *temp = head_;
+        head_ = nullptr;
 
-    head_ = tail_ = nullptr;
+        while (temp) {
+            auto *to_delete = temp;
+            temp = temp->next;
+
+            delete to_delete;
+            to_delete = nullptr;
+        }
+
+        temp = nullptr;
+    }
 }
 
 template <class T>
