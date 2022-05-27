@@ -12,10 +12,15 @@ public:
     void Display();
     void PushBack(T);
     void PushFront(T);
+
+    T PopFront();
+    T PopBack();
 };
 
 template <class T>
 void CircularLinkedList<T>::Display() {
+    this->HandleEmptyLinkedList();
+
     auto *temp = this->head;
 
     do {
@@ -59,4 +64,59 @@ void CircularLinkedList<T>::PushBack(T data) {
     }
 
     this->size++;
+}
+
+template <class T>
+T CircularLinkedList<T>::PopFront() {
+    this->HandleEmptyLinkedList();
+
+    T deleted;
+
+    if (this->size == 1) {
+        deleted = this->head->data;
+
+        this->head->next = nullptr;
+        delete this->head;
+
+        this->head = this->tail = nullptr;
+
+    } else {
+        auto *temp = this->head;
+
+        deleted = temp->data;
+
+        this->head = temp->next;
+        this->tail->next = this->head;
+
+        temp->next = nullptr;
+        delete temp;
+        temp = nullptr;
+    }
+
+    this->size--;
+
+    return deleted;
+}
+
+template <class T>
+T CircularLinkedList<T>::PopBack() {
+    this->HandleEmptyLinkedList();
+
+    if (this->size == 1)
+        return PopFront();
+
+    auto *previous_node = this->GetNodeAt(this->size - 1);
+
+    auto deleted = this->tail->data;
+
+    this->tail->next = nullptr;
+    delete this->tail;
+    this->tail = nullptr;
+
+    this->tail = previous_node;
+    this->tail->next = this->head;
+
+    this->size--;
+
+    return deleted;
 }
