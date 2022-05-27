@@ -11,6 +11,7 @@ public:
 
     T PopFront();
     T PopBack();
+    T RemoveAt(size_t);
 };
 
 template <class T>
@@ -104,6 +105,37 @@ T DoublyLinkedList<T>::PopBack() {
 
         this->tail = previous_node;
     }
+
+    this->size--;
+
+    return deleted;
+}
+template <class T>
+T DoublyLinkedList<T>::RemoveAt(size_t position) {
+    this->HandleEmptyLinkedList();
+    this->HandlePosition(position);
+
+    if (position == 1)
+        return PopFront();
+
+    if (position == this->size)
+        return PopBack();
+
+    auto* current_node = this->GetNodeAt(position);
+
+    T deleted = current_node->data;
+
+    auto* previous_node = current_node->prev;
+
+    current_node->prev = nullptr;
+
+    previous_node->next = current_node->next;
+
+    current_node->next->prev = previous_node;
+    current_node->next = nullptr;
+
+    delete current_node;
+    current_node = nullptr;
 
     this->size--;
 
