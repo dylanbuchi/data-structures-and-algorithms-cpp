@@ -3,8 +3,6 @@
 #include "node.h"
 #include "print.h"
 
-using std::string;
-
 template <class T>
 class LinkedList : public IList<T> {
 private:
