@@ -6,19 +6,20 @@
 template <class T>
 class LinkedList : public IList<T> {
 private:
-    size_t length_;
-
-    Node<T> *head_, *tail_;
-
-    Node<T> *GetNodeAt_(size_t);
-
     Node<T> *ReverseRecursively_(Node<T> *, Node<T> *);
     Node<T> *Reverse_();
 
-    Exception error_;
+protected:
+    size_t size;
 
-    void HandlePosition_(size_t);
-    void HandleEmptyLinkedList_();
+    Node<T> *head, *tail;
+
+    Node<T> *GetNodeAt(size_t);
+
+    Exception error;
+
+    void HandlePosition(size_t);
+    void HandleEmptyLinkedList();
 
 public:
     LinkedList();
@@ -48,15 +49,15 @@ public:
 
 template <class T>
 LinkedList<T>::LinkedList() {
-    head_ = tail_ = nullptr;
-    length_ = 0;
+    head = tail = nullptr;
+    size = 0;
 }
 
 template <class T>
 LinkedList<T>::~LinkedList() {
-    if (head_) {
-        auto *temp = head_;
-        head_ = nullptr;
+    if (head) {
+        auto *temp = head;
+        head = nullptr;
 
         while (temp) {
             auto *to_delete = temp;
@@ -72,12 +73,12 @@ LinkedList<T>::~LinkedList() {
 
 template <class T>
 bool LinkedList<T>::Empty() {
-    return not length_;
+    return not size;
 }
 
 template <class T>
 void LinkedList<T>::Display() {
-    PrintLinkedList(head_);
+    PrintLinkedList(head);
 }
 
 template <class T>
@@ -85,19 +86,19 @@ void LinkedList<T>::PushFront(T data) {
     Node<T> *new_node = new Node{data};
 
     if (Empty())
-        head_ = tail_ = new_node;
+        head = tail = new_node;
 
     else {
-        new_node->next = head_;
-        head_ = new_node;
+        new_node->next = head;
+        head = new_node;
     }
 
-    length_++;
+    size++;
 }
 
 template <class T>
 size_t LinkedList<T>::length() {
-    return length_;
+    return size;
 }
 
 template <class T>
@@ -105,71 +106,71 @@ void LinkedList<T>::PushBack(T data) {
     Node<T> *new_node = new Node{data};
 
     if (Empty())
-        head_ = tail_ = new_node;
+        head = tail = new_node;
 
     else {
-        tail_->next = new_node;
-        tail_ = new_node;
+        tail->next = new_node;
+        tail = new_node;
     }
 
-    length_++;
+    size++;
 }
 
 template <class T>
 void LinkedList<T>::InsertAt(size_t position, T data) {
-    if (position == length_ + 1)
+    if (position == size + 1)
         return PushBack(data);
 
     if (position == 1)
         return PushFront(data);
 
-    HandlePosition_(position);
+    HandlePosition(position);
 
-    auto *temp = GetNodeAt_(position - 1);
+    auto *temp = GetNodeAt(position - 1);
 
     Node<T> *new_node = new Node{data};
 
     new_node->next = temp->next;
     temp->next = new_node;
 
-    length_++;
+    size++;
 }
 
 template <class T>
 T LinkedList<T>::PopFront() {
-    HandleEmptyLinkedList_();
+    HandleEmptyLinkedList();
 
     T deleted;
 
-    if (length_ == 1) {
-        deleted = head_->data;
+    if (size == 1) {
+        deleted = head->data;
 
-        delete head_;
+        delete head;
 
-        head_ = tail_ = nullptr;
+        head = tail = nullptr;
 
     } else {
-        auto *temp = head_;
+        auto *temp = head;
 
         deleted = temp->data;
-        head_ = temp->next;
+        head = temp->next;
 
         temp->next = nullptr;
         delete temp;
         temp = nullptr;
     }
 
-    length_--;
+    size--;
 
     return deleted;
 }
 
 template <class T>
-Node<T> *LinkedList<T>::GetNodeAt_(size_t position) {
-    HandleEmptyLinkedList_();
-    HandlePosition_(position);
+Node<T> *LinkedList<T>::GetNodeAt(size_t position) {
+    HandleEmptyLinkedList();
+    HandlePosition(position);
 
-    auto *temp = head_;
+    auto *temp = head;
 
     for (size_t i = 2; i <= position; i++) {
         temp = temp->next;
@@ -180,39 +181,39 @@ Node<T> *LinkedList<T>::GetNodeAt_(size_t position) {
 
 template <class T>
 T LinkedList<T>::PopBack() {
-    HandleEmptyLinkedList_();
+    HandleEmptyLinkedList();
 
-    if (length_ == 1)
+    if (size == 1)
         return PopFront();
 
-    auto *previous_node = GetNodeAt_(length_ - 1);
+    auto *previous_node = GetNodeAt(size - 1);
 
-    auto deleted = tail_->data;
+    auto deleted = tail->data;
 
-    delete tail_;
-    tail_ = nullptr;
+    delete tail;
+    tail = nullptr;
 
     previous_node->next = nullptr;
 
-    tail_ = previous_node;
+    tail = previous_node;
 
-    length_--;
+    size--;
 
     return deleted;
 }
 
 template <class T>
 T LinkedList<T>::RemoveAt(size_t position) {
-    HandleEmptyLinkedList_();
-    HandlePosition_(position);
+    HandleEmptyLinkedList();
+    HandlePosition(position);
 
     if (position == 1)
         return PopFront();
 
-    if (position == length_)
+    if (position == size)
         return PopBack();
 
-    auto *previous_node = GetNodeAt_(position - 1);
+    auto *previous_node = GetNodeAt(position - 1);
     auto *node_to_delete = previous_node->next;
 
     auto deleted = node_to_delete->data;
@@ -223,28 +224,28 @@ T LinkedList<T>::RemoveAt(size_t position) {
     delete node_to_delete;
     node_to_delete = nullptr;
 
-    length_--;
+    size--;
 
     return deleted;
 }
 
 template <class T>
-void LinkedList<T>::HandlePosition_(size_t position) {
-    if ((position < 1 or position > length_))
-        throw Exception(error_.kInvalidPosition);
+void LinkedList<T>::HandlePosition(size_t position) {
+    if ((position < 1 or position > size))
+        throw Exception(error.kInvalidPosition);
 }
 
 template <class T>
-void LinkedList<T>::HandleEmptyLinkedList_() {
+void LinkedList<T>::HandleEmptyLinkedList() {
     if (Empty())
-        throw Exception(error_.kEmpty);
+        throw Exception(error.kEmpty);
 }
 
 template <class T>
 int LinkedList<T>::Find(T item) {
-    HandleEmptyLinkedList_();
+    HandleEmptyLinkedList();
 
-    auto *temp = head_;
+    auto *temp = head;
     size_t position = 1;
     while (temp) {
         if (temp->data == item)
@@ -254,41 +255,41 @@ int LinkedList<T>::Find(T item) {
         position++;
     }
 
-    throw Exception(error_.kItemDoesNotExist);
+    throw Exception(error.kItemDoesNotExist);
 }
 
 template <class T>
 T LinkedList<T>::Get(T item) {
-    HandleEmptyLinkedList_();
+    HandleEmptyLinkedList();
 
     int node_position = Find(item);
 
     if (node_position < 1)
-        throw Exception(error_.kItemDoesNotExist);
+        throw Exception(error.kItemDoesNotExist);
 
-    return GetNodeAt_(node_position)->data;
+    return GetNodeAt(node_position)->data;
 }
 
 template <class T>
 void LinkedList<T>::Reverse() {
-    HandleEmptyLinkedList_();
+    HandleEmptyLinkedList();
 
-    tail_ = head_;
-    head_ = Reverse_();
+    tail = head;
+    head = Reverse_();
 }
 
 template <class T>
 Node<T> *LinkedList<T>::Reverse_() {
-    HandleEmptyLinkedList_();
+    HandleEmptyLinkedList();
 
     Node<T> *previous_node = nullptr;
 
-    while (head_) {
-        auto *next_node = head_->next;
+    while (head) {
+        auto *next_node = head->next;
 
-        head_->next = previous_node;
-        previous_node = head_;
-        head_ = next_node;
+        head->next = previous_node;
+        previous_node = head;
+        head = next_node;
     }
 
     return previous_node;
@@ -296,7 +297,7 @@ Node<T> *LinkedList<T>::Reverse_() {
 
 template <class T>
 Node<T> *LinkedList<T>::ReverseRecursively_(Node<T> *head, Node<T> *previous_node) {
-    HandleEmptyLinkedList_();
+    HandleEmptyLinkedList();
 
     if (head == nullptr)
         return previous_node;
@@ -309,9 +310,9 @@ Node<T> *LinkedList<T>::ReverseRecursively_(Node<T> *head, Node<T> *previous_nod
 
 template <class T>
 void LinkedList<T>::Set(size_t position, T item) {
-    HandleEmptyLinkedList_();
-    HandlePosition_(position);
+    HandleEmptyLinkedList();
+    HandlePosition(position);
 
-    auto *node = GetNodeAt_(position);
+    auto *node = GetNodeAt(position);
     node->data = item;
 }
