@@ -12,14 +12,6 @@ public:
     }
 
     ~Node() {
-        auto *temp = next;
-        delete next;
-
-        if (temp != prev) {
-            delete prev;
-            prev = nullptr;
-        }
-
-        temp = next = nullptr;
+        next = prev = nullptr;
     };
 };
