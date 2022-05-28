@@ -1,6 +1,7 @@
 #include "linkedlist.h"
 
 #include "exception.h"
+#include "free_memory.h"
 #include "node.h"
 #include "print.h"
 
@@ -56,20 +57,8 @@ LinkedList<T>::LinkedList() {
 
 template <class T>
 LinkedList<T>::~LinkedList() {
-    if (head) {
-        auto *temp = head;
-        head = nullptr;
-
-        while (temp) {
-            auto *to_delete = temp;
-            temp = temp->next;
-
-            delete to_delete;
-            to_delete = nullptr;
-        }
-
-        temp = nullptr;
-    }
+    FreeMemoryFromLinkedList(head);
+    head = tail = nullptr;
 }
 
 template <class T>
